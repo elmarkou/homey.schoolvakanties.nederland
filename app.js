@@ -33,15 +33,15 @@ class SchoolHolidayApp extends Homey.App {
   async initializeTokens() {
     this.tokenYesterday = await this.createToken(
       "SchoolHolidayYesterday",
-      "tokens.yesterday"
+      "tokens.yesterday",
     );
     this.tokenToday = await this.createToken(
       "SchoolHolidayToday",
-      "tokens.today"
+      "tokens.today",
     );
     this.tokenTomorrow = await this.createToken(
       "SchoolHolidayTomorrow",
-      "tokens.tomorrow"
+      "tokens.tomorrow",
     );
   }
 
@@ -69,10 +69,107 @@ class SchoolHolidayApp extends Homey.App {
       if (card.name === "is_custom_holiday") {
         flowCard.registerArgumentAutocompleteListener(
           "holiday",
-          this.autocompleteHolidays.bind(this)
+          this.autocompleteHolidays.bind(this),
         );
       }
     });
+
+    this.triggerHolidayStarts = this.homey.flow.getTriggerCard(
+      "specific_holiday_starts",
+    );
+    this.triggerHolidayStarts.registerRunListener(
+      async (args, state) =>
+        args.holiday === state.holiday && args.regio === state.regio,
+    );
+
+    this.triggerHolidayEnds = this.homey.flow.getTriggerCard(
+      "specific_holiday_ends",
+    );
+    this.triggerHolidayEnds.registerRunListener(
+      async (args, state) =>
+        args.holiday === state.holiday && args.regio === state.regio,
+    );
+
+    this.triggerAnyHolidayStarts =
+      this.homey.flow.getTriggerCard("holiday_starts");
+    this.triggerAnyHolidayStarts.registerRunListener(
+      async (args, state) => args.regio === state.regio,
+    );
+
+    this.triggerAnyHolidayEnds = this.homey.flow.getTriggerCard("holiday_ends");
+    this.triggerAnyHolidayEnds.registerRunListener(
+      async (args, state) => args.regio === state.regio,
+    );
+
+    this.scheduleMidnightCheck();
+  }
+
+  async onUninit() {
+    if (this._midnightInterval) {
+      this.homey.clearInterval(this._midnightInterval);
+      this._midnightInterval = null;
+    }
+  }
+
+  scheduleMidnightCheck() {
+    const now = moment();
+    const midnight = moment().add(1, "day").startOf("day");
+    const msUntilMidnight = midnight.diff(now);
+
+    this.homey.setTimeout(async () => {
+      await this.checkHolidayTriggers();
+      this._midnightInterval = this.homey.setInterval(
+        () => this.checkHolidayTriggers(),
+        24 * 60 * 60 * 1000,
+      );
+    }, msUntilMidnight);
+  }
+
+  async checkHolidayTriggers() {
+    try {
+      this.cachedHolidayData = [];
+      const data = await this.resolveHolidayData();
+      const today = moment().format(DATE_FORMAT);
+      const regions = ["noord", "midden", "zuid"];
+
+      for (const vacation of data) {
+        const holidayId = vacation.type.trim().toLowerCase();
+        const holidayName = vacation.type.trim();
+
+        for (const regio of regions) {
+          const regionData = vacation.regions.find(
+            (r) => r.region === regio || r.region === "heel Nederland",
+          );
+          if (!regionData) continue;
+
+          if (regionData.startdate === today) {
+            await this.triggerHolidayStarts
+              .trigger(
+                { holiday_name: holidayName },
+                { holiday: holidayId, regio },
+              )
+              .catch(this.error);
+            await this.triggerAnyHolidayStarts
+              .trigger({ holiday_name: holidayName }, { regio })
+              .catch(this.error);
+          }
+
+          if (regionData.enddate === today) {
+            await this.triggerHolidayEnds
+              .trigger(
+                { holiday_name: holidayName },
+                { holiday: holidayId, regio },
+              )
+              .catch(this.error);
+            await this.triggerAnyHolidayEnds
+              .trigger({ holiday_name: holidayName }, { regio })
+              .catch(this.error);
+          }
+        }
+      }
+    } catch (error) {
+      this.log("Error checking holiday triggers:", error);
+    }
   }
 
   async handleSchoolHolidayCondition({ day, regio }) {
@@ -84,7 +181,7 @@ class SchoolHolidayApp extends Homey.App {
   async handleSpecificSchoolHolidayCondition({ regio, holiday, day }) {
     const regions = await this.resolveHolidayData();
     const filteredRegions = regions.filter(
-      ({ type }) => type.trim().toLowerCase() === holiday.toLowerCase()
+      ({ type }) => type.trim().toLowerCase() === holiday.toLowerCase(),
     );
     const holidayDates = this.processRegionData(filteredRegions, regio);
     return this.isSchoolHoliday(day, holidayDates);
@@ -114,7 +211,7 @@ class SchoolHolidayApp extends Homey.App {
 
   createRangeDates(startDate, endDate) {
     return Array.from(moment.range(startDate, endDate).by("days")).map((m) =>
-      m.format(DATE_FORMAT)
+      m.format(DATE_FORMAT),
     );
   }
 
@@ -124,18 +221,18 @@ class SchoolHolidayApp extends Homey.App {
         regions.find(
           (region) =>
             region.region === regionToFilter ||
-            region.region === "heel Nederland"
-        )
+            region.region === "heel Nederland",
+        ),
       )
       .filter(Boolean)
       .flatMap(({ startdate, enddate }) =>
-        this.createRangeDates(startdate, enddate)
+        this.createRangeDates(startdate, enddate),
       );
   }
 
   processData(datesArray) {
     return datesArray.flatMap(({ startDate, endDate }) =>
-      this.createRangeDates(startDate, endDate)
+      this.createRangeDates(startDate, endDate),
     );
   }
 
@@ -149,8 +246,8 @@ class SchoolHolidayApp extends Homey.App {
   getLatestEndDate(data) {
     const allEndDates = data.content.flatMap((item) =>
       item.vacations.flatMap(({ regions }) =>
-        regions.map(({ enddate }) => new Date(enddate))
-      )
+        regions.map(({ enddate }) => new Date(enddate)),
+      ),
     );
     return new Date(Math.max(...allEndDates)).toISOString();
   }
@@ -214,19 +311,19 @@ class SchoolHolidayApp extends Homey.App {
         });
         return upcomingHolidays
           .filter((item) =>
-            item.label.toLowerCase().includes(query.toLowerCase())
+            item.label.toLowerCase().includes(query.toLowerCase()),
           )
           .map(({ id, label, isSchoolHoliday, startDate, endDate }) => ({
             name: label,
             description: `${moment(startDate).format(
-              DATE_PRETTY_FORMAT
+              DATE_PRETTY_FORMAT,
             )} - ${moment(endDate).format(DATE_PRETTY_FORMAT)}`,
             id: id,
             isSchoolHoliday: isSchoolHoliday,
             startDate: moment(startDate),
             endDate: moment(endDate),
           }));
-      }
+      },
     );
   }
 
@@ -237,7 +334,7 @@ class SchoolHolidayApp extends Homey.App {
       .map(({ id, label, isSchoolHoliday, startDate, endDate }) => ({
         name: label,
         description: `${moment(startDate).format(
-          DATE_PRETTY_FORMAT
+          DATE_PRETTY_FORMAT,
         )} - ${moment(endDate).format(DATE_PRETTY_FORMAT)}`,
         id: id,
         isSchoolHoliday: isSchoolHoliday,
@@ -251,7 +348,7 @@ class SchoolHolidayApp extends Homey.App {
     const upcomingHolidays = this.processUpcomingHolidays(
       regions.vacations,
       region,
-      count
+      count,
     );
     return upcomingHolidays;
   }
@@ -282,7 +379,7 @@ class SchoolHolidayApp extends Homey.App {
       item.isActive = moment({ hours: 0 }).isBetween(
         item.startDate,
         item.endDate,
-        "day"
+        "day",
       );
       item.isSchoolHoliday = false;
     });
@@ -291,20 +388,20 @@ class SchoolHolidayApp extends Homey.App {
       .map(({ type, regions }) => {
         const region = regions.find(
           ({ region }) =>
-            region === regionToFilter || region === "heel Nederland"
+            region === regionToFilter || region === "heel Nederland",
         );
         if (region) {
           return this.createUpcomingHoliday(
             type.trim(),
             region.startdate,
-            region.enddate
+            region.enddate,
           );
         }
         return null;
       })
       .filter(Boolean) // Remove null values
       .filter((holiday) =>
-        moment().isSameOrBefore(moment(holiday.endDate), "day")
+        moment().isSameOrBefore(moment(holiday.endDate), "day"),
       ); // Filter out past holidays
 
     const allHolidays = [...regionDates, ...customDates]

@@ -1,0 +1,143 @@
+{
+  "id": "specific_holiday_ends",
+  "title": {
+    "en": "A specific school holiday ends",
+    "nl": "Een specifieke schoolvakantie eindigt",
+    "de": "Bestimmte Schulferien enden",
+    "fr": "Des vacances scolaires spécifiques se terminent"
+  },
+  "titleFormatted": {
+    "en": "[[holiday]] ends in [[regio]]",
+    "nl": "[[holiday]] eindigt in [[regio]]",
+    "de": "[[holiday]] endet in [[regio]]",
+    "fr": "[[holiday]] se termine dans [[regio]]"
+  },
+  "hint": {
+    "en": "This flow is triggered when a specific school holiday ends today",
+    "nl": "Deze flow wordt gestart als een specifieke schoolvakantie vandaag eindigt",
+    "de": "Dieser Ablauf wird ausgelöst, wenn bestimmte Schulferien heute enden",
+    "fr": "Ce flux est déclenché lorsque des vacances scolaires spécifiques se terminent aujourd'hui"
+  },
+  "tokens": [
+    {
+      "name": "holiday_name",
+      "type": "string",
+      "title": {
+        "en": "Holiday name",
+        "nl": "Vakantienaam",
+        "de": "Ferienname",
+        "fr": "Nom des vacances"
+      }
+    }
+  ],
+  "args": [
+    {
+      "name": "regio",
+      "type": "dropdown",
+      "title": {
+        "en": "Region",
+        "nl": "Regio",
+        "de": "Region",
+        "fr": "Région"
+      },
+      "placeholder": {
+        "en": "Select a region",
+        "nl": "Selecteer een regio",
+        "de": "Wählen Sie eine Region",
+        "fr": "Sélectionnez une région"
+      },
+      "values": [
+        {
+          "id": "noord",
+          "label": {
+            "en": "North Region",
+            "nl": "Regio Noord",
+            "de": "Nordregion",
+            "fr": "Région Nord"
+          }
+        },
+        {
+          "id": "midden",
+          "label": {
+            "en": "Central Region",
+            "nl": "Regio Midden",
+            "de": "Zentralregion",
+            "fr": "Région Centrale"
+          }
+        },
+        {
+          "id": "zuid",
+          "label": {
+            "en": "South Region",
+            "nl": "Regio Zuid",
+            "de": "Südregion",
+            "fr": "Région Sud"
+          }
+        }
+      ]
+    },
+    {
+      "name": "holiday",
+      "type": "dropdown",
+      "title": {
+        "en": "Holiday",
+        "nl": "Vakantie",
+        "de": "Ferien",
+        "fr": "Vacances"
+      },
+      "placeholder": {
+        "en": "Select a holiday",
+        "nl": "Selecteer een vakantie",
+        "de": "Wählen Sie Ferien",
+        "fr": "Sélectionnez des vacances"
+      },
+      "values": [
+        {
+          "id": "herfstvakantie",
+          "label": {
+            "en": "Autumn break",
+            "nl": "Herfstvakantie",
+            "de": "Herbstferien",
+            "fr": "Vacances d'automne"
+          }
+        },
+        {
+          "id": "kerstvakantie",
+          "label": {
+            "en": "Christmas break",
+            "nl": "Kerstvakantie",
+            "de": "Weihnachtsferien",
+            "fr": "Vacances de Noël"
+          }
+        },
+        {
+          "id": "voorjaarsvakantie",
+          "label": {
+            "en": "Spring break",
+            "nl": "Voorjaarsvakantie",
+            "de": "Frühlingsferien",
+            "fr": "Vacances de printemps"
+          }
+        },
+        {
+          "id": "meivakantie",
+          "label": {
+            "en": "May holidays",
+            "nl": "Meivakantie",
+            "de": "Maiferien",
+            "fr": "Vacances de mai"
+          }
+        },
+        {
+          "id": "zomervakantie",
+          "label": {
+            "en": "Summer holiday",
+            "nl": "Zomervakantie",
+            "de": "Sommerferien",
+            "fr": "Vacances d'été"
+          }
+        }
+      ]
+    }
+  ]
+}

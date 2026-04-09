@@ -1,0 +1,80 @@
+{
+  "id": "holiday_ends",
+  "title": {
+    "en": "A school holiday ends",
+    "nl": "Een schoolvakantie eindigt",
+    "de": "Schulferien enden",
+    "fr": "Les vacances scolaires se terminent"
+  },
+  "titleFormatted": {
+    "en": "Any school holiday ends in [[regio]]",
+    "nl": "Er eindigt een schoolvakantie in [[regio]]",
+    "de": "Schulferien enden in [[regio]]",
+    "fr": "Les vacances scolaires se terminent dans [[regio]]"
+  },
+  "hint": {
+    "en": "This flow is triggered when any school holiday ends today in the selected region",
+    "nl": "Deze flow wordt gestart als er een schoolvakantie eindigt vandaag in de geselecteerde regio",
+    "de": "Dieser Ablauf wird ausgelöst, wenn heute Schulferien in der gewählten Region enden",
+    "fr": "Ce flux est déclenché lorsque des vacances scolaires se terminent aujourd'hui dans la région sélectionnée"
+  },
+  "tokens": [
+    {
+      "name": "holiday_name",
+      "type": "string",
+      "title": {
+        "en": "Holiday name",
+        "nl": "Vakantienaam",
+        "de": "Ferienname",
+        "fr": "Nom des vacances"
+      }
+    }
+  ],
+  "args": [
+    {
+      "name": "regio",
+      "type": "dropdown",
+      "title": {
+        "en": "Region",
+        "nl": "Regio",
+        "de": "Region",
+        "fr": "Région"
+      },
+      "placeholder": {
+        "en": "Select a region",
+        "nl": "Selecteer een regio",
+        "de": "Wählen Sie eine Region",
+        "fr": "Sélectionnez une région"
+      },
+      "values": [
+        {
+          "id": "noord",
+          "label": {
+            "en": "North Region",
+            "nl": "Regio Noord",
+            "de": "Nordregion",
+            "fr": "Région Nord"
+          }
+        },
+        {
+          "id": "midden",
+          "label": {
+            "en": "Central Region",
+            "nl": "Regio Midden",
+            "de": "Zentralregion",
+            "fr": "Région Centrale"
+          }
+        },
+        {
+          "id": "zuid",
+          "label": {
+            "en": "South Region",
+            "nl": "Regio Zuid",
+            "de": "Südregion",
+            "fr": "Région Sud"
+          }
+        }
+      ]
+    }
+  ]
+}

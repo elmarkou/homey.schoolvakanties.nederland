@@ -10,6 +10,15 @@ Caractéristiques :
 - Consultez un aperçu complet de toutes les vacances scolaires par région aux Pays-Bas.
 - Utilisez le widget pour ajouter à votre tableau de bord, affichant la prochaine vacance à venir ou une vacance spécifique choisie.
 
+## Déclencheurs (WHEN)
+
+- `holiday_starts`: Déclenche un flux lorsqu'une vacance scolaire commence aujourd'hui dans la région sélectionnée. Argument: `regio` (noord/midden/zuid). Jeton: `holiday_name`.
+- `holiday_ends`: Déclenche un flux lorsqu'une vacance scolaire se termine aujourd'hui dans la région sélectionnée. Argument: `regio`. Jeton: `holiday_name`.
+- `specific_holiday_starts`: Déclenche un flux lorsqu'une vacance spécifique commence aujourd'hui dans la région sélectionnée. Arguments: `regio` et `holiday` (herfstvakantie, kerstvakantie, voorjaarsvakantie, meivakantie, zomervakantie). Jeton: `holiday_name`.
+- `specific_holiday_ends`: Déclenche un flux lorsqu'une vacance spécifique se termine aujourd'hui dans la région sélectionnée. Arguments et jeton identiques.
+
+Tous les déclencheurs s'exécutent une fois par jour à minuit; il n'y a pas de polling continu et aucun impact mémoire ou performance.
+
 Exemple d'utilisation :
 
 - Supposons que votre réveil du matin se déclenche. Si ce n'est pas un jour de vacances scolaires, laissez l'alarme jouer de la musique de réveil matinale.

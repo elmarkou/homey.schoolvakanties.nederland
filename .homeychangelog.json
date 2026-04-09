@@ -157,5 +157,8 @@
   },
   "2.2.8": {
     "en": "Some minor fixes"
+  },
+  "2.3.0": {
+    "en": "add new triggers"
   }
 }

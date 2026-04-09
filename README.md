@@ -66,6 +66,10 @@ If you like the app, you are free to sponsor.
 
 ### Release Notes
 
+### 2.3.0
+
+- Add new triggers
+
 ### 2.2.8
 
 -

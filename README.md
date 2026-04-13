@@ -6,51 +6,6 @@ Check if today / yesterday / tomorrow is a (school) holiday in the Netherlands.
 
 ![image][storebackdrop]
 
-## Conditions
-
-- Today / Yesterday / Tomorrow it is school holiday in [Region]
-- Today / Yesterday / Tomorrow it is [Holiday] in [Region]
-- Today / Yesterday / Tomorrow it is [CustomHoliday]
-
-## Triggers (WHEN)
-
-- Any school holiday starts in a region (`holiday_starts`): fires when any school holiday starts today in the chosen region. Argument: `regio` (noord/midden/zuid). Token: `holiday_name`.
-- Any school holiday ends in a region (`holiday_ends`): fires when any school holiday ends today in the chosen region. Argument: `regio`. Token: `holiday_name`.
-- A specific school holiday starts in a region (`specific_holiday_starts`): fires when the selected holiday starts today for the chosen region. Arguments: `regio` and `holiday` (herfstvakantie, kerstvakantie, voorjaarsvakantie, meivakantie, zomervakantie). Token: `holiday_name`.
-- A specific school holiday ends in a region (`specific_holiday_ends`): fires when the selected holiday ends today for the chosen region. Arguments: `regio` and `holiday`. Token: `holiday_name`.
-
-All trigger cards fire once per day at midnight. Each trigger provides a `holiday_name` token you can use in the flow actions.
-
-## Regions
-
-- North Region
-- Central Region
-- South Region
-
-## Holidays
-
-- Autumn break
-- Christmas break
-- Spring break
-- May holidays
-- Summer holidays
-
-## Settings
-
-- Gives an overview of all holidays per region in the Netherlands.
-- You can manage your own holidays. You can add or delete custom holidays.
-
-## Tokens
-
-- School holiday yesterday
-- School holiday today
-- School holiday tomorrow
-
-## Examples
-
-- WHEN the alarm is going off, AND it's not a school holiday, THEN play a morning sound
-- WHEN this flow starts, AND it's a Christmas holiday, THEN play a christmas music
-
 ## Acknowledgements
 
 The open-data API from [https://www.rijksoverheid.nl/opendata/schoolvakanties](https://www.rijksoverheid.nl/opendata/schoolvakanties).

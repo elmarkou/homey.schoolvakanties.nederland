@@ -10,19 +10,4 @@ Funktionen:
 - Sehen Sie sich eine vollständige Übersicht aller Schulferien nach Region in den Niederlanden an.
 - Verwenden Sie das Widget, um es Ihrem Dashboard hinzuzufügen und die nächste bevorstehende Ferien oder eine bestimmte ausgewählte Ferien anzuzeigen.
 
-## Auslöser (WHEN)
-
-- `holiday_starts`: Löst einen Flow aus, wenn heute eine Schulferien in der ausgewählten Region beginnt. Argument: `regio` (noord/midden/zuid). Token: `holiday_name`.
-- `holiday_ends`: Löst einen Flow aus, wenn heute eine Schulferien in der ausgewählten Region endet. Argument: `regio`. Token: `holiday_name`.
-- `specific_holiday_starts`: Löst einen Flow aus, wenn eine bestimmte Ferien heute in der ausgewählten Region beginnt. Argumente: `regio` und `holiday` (herfstvakantie, kerstvakantie, voorjaarsvakantie, meivakantie, zomervakantie). Token: `holiday_name`.
-- `specific_holiday_ends`: Löst einen Flow aus, wenn eine bestimmte Ferien heute in der ausgewählten Region endet. Argumente und Token sind dieselben.
-
-Alle Auslöser werden einmal pro Tag um Mitternacht ausgeführt; es gibt kein kontinuierliches Polling und keine Speicher- oder Leistungsbeeinträchtigung.
-
-Beispielanwendung:
-
-- Angenommen, Ihr Morgenwecker klingelt. Wenn es kein Schulferientag ist, lassen Sie den Wecker Morgenaufwachmusik spielen.
-- Wenn es Weihnachtsferien sind, können Sie stattdessen festliche Feiertagsmusik wählen.
-- Wenn es ein (Schul-)Ferientag ist, können Sie Ihren Wecker überspringen.
-
 Bleiben Sie über Schul- und benutzerdefinierte Ferien informiert und passen Sie Ihre Pläne entsprechend mit diesem Tool an!

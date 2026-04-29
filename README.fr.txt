@@ -1,11 +1,13 @@
 Vacances Scolaires aux Pays-Bas – Vérifiez facilement le statut des vacances !
 
-Cette application vous permet de déterminer rapidement si aujourd'hui, hier ou demain est un jour de vacances scolaires aux Pays-Bas. Elle fournit des informations complètes sur les vacances dans différentes régions (Nord, Centre, Sud) et divers types de vacances telles que les vacances d'automne, les vacances de Noël, les vacances de printemps, les vacances de mai et les vacances d'été. Vous pouvez également gérer des vacances personnalisées et obtenir un aperçu de toutes les vacances par région. L'application inclut des jetons pour intégrer les vérifications des vacances dans vos flux de travail, ce qui facilite l'automatisation des actions basées sur les vacances scolaires et personnalisées.
+Cette application vous permet de déterminer rapidement si aujourd'hui, hier ou demain est un jour de vacances scolaires aux Pays-Bas. Elle fournit des informations complètes sur les vacances dans différentes régions (Nord, Centre, Sud) et divers types de vacances telles que les vacances d'automne, les vacances de Noël, les vacances de printemps, les vacances de mai et les vacances d'été. Vous pouvez également gérer des vacances personnalisées et obtenir un aperçu de toutes les vacances par région. L'application inclut des jetons et des cartes de flux pour intégrer les vérifications des vacances dans vos flux de travail, ce qui facilite l'automatisation des actions basées sur les vacances scolaires et personnalisées.
 
 Caractéristiques :
 
 - Vérifiez si aujourd'hui, hier ou demain est un jour de vacances dans la région Nord, la région Centre ou la région Sud.
 - Obtenez des détails sur des vacances spécifiques comme les vacances d'automne, les vacances de Noël, les vacances de printemps, les vacances de mai et les vacances d'été.
 - Gérez vos propres vacances : ajoutez des vacances personnalisées ou supprimez celles qui sont non pertinentes.
+- Déclenchez des flux lorsqu'une vacance scolaire spécifique commence ou se termine dans la région choisie.
+- Déclenchez des flux lorsque l'une de vos vacances personnalisées commence ou se termine.
 - Consultez un aperçu complet de toutes les vacances scolaires par région aux Pays-Bas.
 - Utilisez le widget pour ajouter à votre tableau de bord, affichant la prochaine vacance à venir ou une vacance spécifique choisie.

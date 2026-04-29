@@ -11,7 +11,7 @@ const CUSTOM_DATES_KEY = "customDates";
 const DATE_FORMAT = "YYYY-MM-DD";
 const DATE_PRETTY_FORMAT = "LL";
 const API_ENDPOINT =
-  "https://opendata.rijksoverheid.nl/v1/sources/rijksoverheid/infotypes/schoolholidays/schoolyear/";
+  "https://opendata.rijksoverheid.nl/v1/infotypes/schoolholidays/schoolyear/";
 
 class SchoolHolidayApp extends Homey.App {
   async onInit() {
@@ -101,7 +101,35 @@ class SchoolHolidayApp extends Homey.App {
       async (args, state) => args.regio === state.regio,
     );
 
+    this.triggerCustomHolidayStarts = this.homey.flow.getTriggerCard(
+      "custom_holiday_starts",
+    );
+    this.triggerCustomHolidayStarts.registerRunListener(
+      async (args, state) =>
+        this.matchesCustomHolidaySelection(args.holiday, state.holiday),
+    );
+    this.triggerCustomHolidayStarts.registerArgumentAutocompleteListener(
+      "holiday",
+      this.autocompleteHolidays.bind(this),
+    );
+
+    this.triggerCustomHolidayEnds = this.homey.flow.getTriggerCard(
+      "custom_holiday_ends",
+    );
+    this.triggerCustomHolidayEnds.registerRunListener(
+      async (args, state) =>
+        this.matchesCustomHolidaySelection(args.holiday, state.holiday),
+    );
+    this.triggerCustomHolidayEnds.registerArgumentAutocompleteListener(
+      "holiday",
+      this.autocompleteHolidays.bind(this),
+    );
+
     this.scheduleMidnightCheck();
+  }
+
+  matchesCustomHolidaySelection(selectedHoliday, holidayId) {
+    return String(selectedHoliday?.id) === String(holidayId);
   }
 
   async onUninit() {
@@ -167,9 +195,31 @@ class SchoolHolidayApp extends Homey.App {
           }
         }
       }
+
+      const customDates = this.getCustomDates();
+      for (const holiday of customDates) {
+        const holidayId = String(holiday.id);
+        const holidayName = holiday.label?.trim();
+
+        if (holiday.startDate === today) {
+          await this.triggerCustomHolidayStarts
+            .trigger({ holiday_name: holidayName }, { holiday: holidayId })
+            .catch(this.error);
+        }
+
+        if (holiday.endDate === today) {
+          await this.triggerCustomHolidayEnds
+            .trigger({ holiday_name: holidayName }, { holiday: holidayId })
+            .catch(this.error);
+        }
+      }
     } catch (error) {
       this.log("Error checking holiday triggers:", error);
     }
+  }
+
+  getCustomDates() {
+    return this.homey.settings.get(CUSTOM_DATES_KEY) || [];
   }
 
   async handleSchoolHolidayCondition({ day, regio }) {
@@ -286,7 +336,7 @@ class SchoolHolidayApp extends Homey.App {
   }
 
   async fetchSchoolHolidayData(schoolyear) {
-    const response = await fetch(`${API_ENDPOINT}${schoolyear}?output=json`);
+    const response = await fetch(`${API_ENDPOINT}${schoolyear}`);
     if (!response.ok) {
       throw new Error(`Failed to fetch data for school year: ${schoolyear}`);
     }
@@ -328,7 +378,7 @@ class SchoolHolidayApp extends Homey.App {
   }
 
   async autocompleteHolidays(query) {
-    const customDates = this.homey.settings.get(CUSTOM_DATES_KEY) || [];
+    const customDates = this.getCustomDates();
     return customDates
       .filter(({ label }) => label.toLowerCase().includes(query.toLowerCase()))
       .map(({ id, label, isSchoolHoliday, startDate, endDate }) => ({

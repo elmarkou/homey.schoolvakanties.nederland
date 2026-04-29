@@ -159,6 +159,9 @@
     "en": "Some minor fixes"
   },
   "2.3.0": {
-    "en": "add new triggers"
+    "en": "add school and custom holiday start and end triggers"
+  },
+  "2.4.0": {
+    "en": "Add triggers for custom holidays starting and ending"
   }
 }

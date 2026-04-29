@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "schoolvakanties.nederland",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "compatibility": ">=12.1.0",
   "sdk": 3,
   "name": {
@@ -92,6 +92,108 @@
   "homeyCommunityTopicId": 127566,
   "flow": {
     "triggers": [
+      {
+        "id": "custom_holiday_ends",
+        "title": {
+          "en": "A custom holiday ends",
+          "nl": "Een eigen vakantie eindigt",
+          "de": "Ein benutzerdefinierter Urlaub endet",
+          "fr": "Des vacances personnalisées se terminent"
+        },
+        "titleFormatted": {
+          "en": "[[holiday]] ends",
+          "nl": "[[holiday]] eindigt",
+          "de": "[[holiday]] endet",
+          "fr": "[[holiday]] se termine"
+        },
+        "hint": {
+          "en": "This flow is triggered when the selected custom holiday ends today",
+          "nl": "Deze flow wordt gestart als de gekozen eigen vakantie vandaag eindigt",
+          "de": "Dieser Ablauf wird ausgelöst, wenn der ausgewählte benutzerdefinierte Urlaub heute endet",
+          "fr": "Ce flux est déclenché lorsque les vacances personnalisées choisies se terminent aujourd'hui"
+        },
+        "tokens": [
+          {
+            "name": "holiday_name",
+            "type": "string",
+            "title": {
+              "en": "Holiday name",
+              "nl": "Vakantienaam",
+              "de": "Urlaubsname",
+              "fr": "Nom des vacances"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "autocomplete",
+            "name": "holiday",
+            "title": {
+              "en": "Holiday",
+              "nl": "Vakantie",
+              "de": "Urlaub",
+              "fr": "Vacances"
+            },
+            "placeholder": {
+              "en": "Select a custom holiday",
+              "nl": "Selecteer een eigen vakantie",
+              "de": "Wählen Sie einen benutzerdefinierten Urlaub",
+              "fr": "Sélectionnez des vacances personnalisées"
+            }
+          }
+        ]
+      },
+      {
+        "id": "custom_holiday_starts",
+        "title": {
+          "en": "A custom holiday starts",
+          "nl": "Een eigen vakantie begint",
+          "de": "Ein benutzerdefinierter Urlaub beginnt",
+          "fr": "Des vacances personnalisées commencent"
+        },
+        "titleFormatted": {
+          "en": "[[holiday]] starts",
+          "nl": "[[holiday]] begint",
+          "de": "[[holiday]] beginnt",
+          "fr": "[[holiday]] commence"
+        },
+        "hint": {
+          "en": "This flow is triggered when the selected custom holiday starts today",
+          "nl": "Deze flow wordt gestart als de gekozen eigen vakantie vandaag begint",
+          "de": "Dieser Ablauf wird ausgelöst, wenn der ausgewählte benutzerdefinierte Urlaub heute beginnt",
+          "fr": "Ce flux est déclenché lorsque les vacances personnalisées choisies commencent aujourd'hui"
+        },
+        "tokens": [
+          {
+            "name": "holiday_name",
+            "type": "string",
+            "title": {
+              "en": "Holiday name",
+              "nl": "Vakantienaam",
+              "de": "Urlaubsname",
+              "fr": "Nom des vacances"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "autocomplete",
+            "name": "holiday",
+            "title": {
+              "en": "Holiday",
+              "nl": "Vakantie",
+              "de": "Urlaub",
+              "fr": "Vacances"
+            },
+            "placeholder": {
+              "en": "Select a custom holiday",
+              "nl": "Selecteer een eigen vakantie",
+              "de": "Wählen Sie einen benutzerdefinierten Urlaub",
+              "fr": "Sélectionnez des vacances personnalisées"
+            }
+          }
+        ]
+      },
       {
         "id": "holiday_ends",
         "title": {

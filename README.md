@@ -21,6 +21,9 @@ If you like the app, you are free to sponsor.
 
 ### Release Notes
 
+### 2.4.1
+- Hotfix school holidays API JSON endpoint
+
 ### 2.4.0
 - Add triggers for custom holidays starting and ending
 ### 2.3.0

@@ -1,6 +1,6 @@
 {
   "name": "schoolvakanties.nederland",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "main": "app.js",
   "devDependencies": {
     "homey": "^4.1.1"

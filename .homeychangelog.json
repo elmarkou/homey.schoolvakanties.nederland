@@ -163,5 +163,8 @@
   },
   "2.4.0": {
     "en": "Add triggers for custom holidays starting and ending"
+  },
+  "2.4.1": {
+    "en": "Hotfix school holidays API JSON endpoint"
   }
 }

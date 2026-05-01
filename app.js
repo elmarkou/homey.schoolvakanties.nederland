@@ -336,7 +336,7 @@ class SchoolHolidayApp extends Homey.App {
   }
 
   async fetchSchoolHolidayData(schoolyear) {
-    const response = await fetch(`${API_ENDPOINT}${schoolyear}`);
+    const response = await fetch(`${API_ENDPOINT}${schoolyear}?output=json`);
     if (!response.ok) {
       throw new Error(`Failed to fetch data for school year: ${schoolyear}`);
     }

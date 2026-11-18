@@ -126,11 +126,13 @@ html {
 /* Elapsed part of an active holiday */
 .progress {
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 3px;
-  background: rgba(255, 255, 255, 0.15);
+  left: 68px;
+  right: var(--homey-su-3);
+  bottom: 6px;
+  height: 2px;
+  border-radius: 2px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.12);
   display: none;
 }
 
@@ -142,7 +144,8 @@ html {
   display: block;
   width: 0;
   height: 100%;
-  background: rgba(255, 255, 255, 0.85);
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.5);
   transition: width 0.4s ease;
 }
 

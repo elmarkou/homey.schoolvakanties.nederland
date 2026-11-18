@@ -58,8 +58,8 @@
       }
     },
     "tokenRegion": {
-      "title": "Region für Tokens",
-      "hint": "Die Schulferien-Tokens (heute, morgen, Countdown) verwenden diese Region"
+      "title": "Deine Region",
+      "hint": "Wird für die Tokens Schulferien heute, gestern und morgen, Nächste Schulferien und die Countdown-Tokens verwendet. Flowkarten und das Widget haben eine eigene Region."
     }
   }
 }

@@ -47,13 +47,6 @@
         const progressBarElement = document.getElementById("progressBar");
         const settings = Homey.getSettings();
 
-        // Only show first upcoming holiday
-        if (settings.only_upcoming) {
-          clearActiveHoliday();
-        }
-
-        // setActiveHoliday(settings.holiday);
-        const activeHoliday = settings.only_upcoming ? null : getActiveHoliday();
         let currentHolidayData;
 
         // Set language and locale for moment.js
@@ -112,7 +105,7 @@
           nl: {
             sameDay: "[Tot vandaag]",
             nextDay: "[Tot morgen]",
-            nextWeek: "dddd",
+            nextWeek: "[Tot] dddd",
             lastDay: "[Eindigde gisteren]",
             lastWeek: "[Eindigde afgelopen] dddd",
             sameElse: function () {
@@ -122,7 +115,7 @@
           en: {
             sameDay: "[Until today]",
             nextDay: "[Until tomorrow]",
-            nextWeek: "dddd",
+            nextWeek: "[Until] dddd",
             lastDay: "[Ended yesterday]",
             lastWeek: "[Ended last] dddd",
             sameElse: function () {
@@ -132,7 +125,7 @@
           fr: {
             sameDay: "[Jusqu'à aujourd'hui]",
             nextDay: "[Jusqu'à demain]",
-            nextWeek: "dddd",
+            nextWeek: "[Jusqu'à] dddd",
             lastDay: "[Terminé hier]",
             lastWeek: "[Terminé dernier] dddd",
             sameElse: function () {
@@ -142,7 +135,7 @@
           de: {
             sameDay: "[Bis heute]",
             nextDay: "[Bis morgen]",
-            nextWeek: "dddd",
+            nextWeek: "[Bis] dddd",
             lastDay: "[Endete gestern]",
             lastWeek: "[Endete letzten] dddd",
             sameElse: function () {
@@ -157,28 +150,18 @@
           endCalendar: endCalendar[Homey._language],
         });
 
-        // Store active holiday in session storage
-        function setActiveHoliday(activeHoliday) {
-          sessionStorage.setItem(
-            "ACTIVE_HOLIDAY",
-            JSON.stringify(activeHoliday)
-          );
-          settings.holiday = activeHoliday;
-        }
-
-        // Get active holiday from session storage
-        function getActiveHoliday() {
-          const activeHoliday = sessionStorage.getItem("ACTIVE_HOLIDAY");
-          if (activeHoliday) {
-            return JSON.parse(activeHoliday);
+        // The chosen holiday comes from this widget's own settings (sessionStorage
+        // was shared by all widgets). Custom holidays are re-read so edits show up;
+        // a deleted one returns null and the widget falls back to the next holiday.
+        async function getChosenHoliday() {
+          const chosen = settings.only_upcoming ? null : settings.holiday;
+          if (!chosen || chosen.isSchoolHoliday || chosen.id == null) return chosen;
+          try {
+            return await Homey.api("GET", `/holiday/${chosen.id}`);
+          } catch (error) {
+            console.error("Error fetching chosen holiday:", error);
+            return chosen;
           }
-          return settings.holiday;
-        }
-
-        // Clear active holiday from session storage
-        function clearActiveHoliday() {
-          sessionStorage.removeItem("ACTIVE_HOLIDAY");
-          Homey._settings.holiday = null;
         }
 
         checkForUpdates();
@@ -257,16 +240,9 @@
           };
         }
 
-        // Fetch a single holiday from settings
-        async function fetchHoliday() {
-          try {
-            const holidayData = await createHolidayData(activeHoliday);
-            currentHolidayData = holidayData;
-            setActiveHoliday(holidayData);
-            updateUI(holidayData);
-          } catch (error) {
-            console.error("Error processing holiday data:", error);
-          }
+        async function showHoliday(holiday) {
+          currentHolidayData = await createHolidayData(holiday);
+          updateUI(currentHolidayData);
         }
 
         async function checkForUpdates() {
@@ -274,9 +250,7 @@
             const holidayId = parseInt(data.id);
             if (currentHolidayData?.id === holidayId) {
               if (moment().isBefore(data.endDate)) {
-                const updatedHoliday = await createHolidayData(data);
-                setActiveHoliday(data);
-                updateUI(updatedHoliday);
+                await showHoliday(data);
               } else {
                 fetchAllData();
               }
@@ -305,9 +279,7 @@
             });
 
             if (response.length > 0) {
-              const holidayData = await createHolidayData(response[0]);
-              currentHolidayData = holidayData;
-              updateUI(holidayData);
+              await showHoliday(response[0]);
             }
           } catch (error) {
             console.error("Error fetching upcoming holidays:", error);
@@ -317,10 +289,11 @@
         // Determine which holiday data to fetch
         async function fetchAllData() {
           // A chosen holiday that is over falls back to the next upcoming holiday
-          if (activeHoliday && moment(activeHoliday.endDate).isSameOrAfter(moment(), "day")) {
-            fetchHoliday();
+          const chosen = await getChosenHoliday();
+          if (chosen && moment(chosen.endDate).isSameOrAfter(moment(), "day")) {
+            await showHoliday(chosen);
           } else {
-            fetchUpcomingHolidays();
+            await fetchUpcomingHolidays();
           }
         }
 

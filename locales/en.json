@@ -58,8 +58,8 @@
       }
     },
     "tokenRegion": {
-      "title": "Region for tokens",
-      "hint": "The school holiday tokens (today, tomorrow, countdown) use this region"
+      "title": "Your region",
+      "hint": "Used by the tokens School holiday today, yesterday and tomorrow, Next school holiday and the countdown tokens. Flow cards and the widget have their own region."
     }
   }
 }

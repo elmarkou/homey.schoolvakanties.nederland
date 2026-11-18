@@ -58,8 +58,8 @@
       }
     },
     "tokenRegion": {
-      "title": "Regio voor tokens",
-      "hint": "De schoolvakantie-tokens (vandaag, morgen, aftellen) gebruiken deze regio"
+      "title": "Jouw regio",
+      "hint": "Wordt gebruikt voor de tokens Schoolvakantie vandaag, gisteren en morgen, Volgende schoolvakantie en de aftel-tokens. Flowkaarten en de widget hebben een eigen regio."
     }
   }
 }

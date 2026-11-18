@@ -58,8 +58,8 @@
       }
     },
     "tokenRegion": {
-      "title": "Région pour les jetons",
-      "hint": "Les jetons des vacances scolaires (aujourd'hui, demain, compte à rebours) utilisent cette région"
+      "title": "Votre région",
+      "hint": "Utilisée pour les jetons Vacances scolaires aujourd'hui, hier et demain, Prochaines vacances scolaires et les jetons de compte à rebours. Les cartes Flow et le widget ont leur propre région."
     }
   }
 }

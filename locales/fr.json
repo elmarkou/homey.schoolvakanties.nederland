@@ -2,7 +2,10 @@
   "tokens": {
     "yesterday": "Vacances scolaires hier",
     "today": "Vacances scolaires aujourd'hui",
-    "tomorrow": "Vacances scolaires demain"
+    "tomorrow": "Vacances scolaires demain",
+    "next_name": "Prochaines vacances scolaires",
+    "days_until": "Jours avant les prochaines vacances scolaires",
+    "days_remaining": "Jours de vacances restants"
   },
   "widgets": {
     "upcomingholiday": {
@@ -53,6 +56,10 @@
         "title": "Région Sud",
         "subtitle": "Division des vacances scolaires pour la région Sud"
       }
+    },
+    "tokenRegion": {
+      "title": "Région pour les jetons",
+      "hint": "Les jetons des vacances scolaires (aujourd'hui, demain, compte à rebours) utilisent cette région"
     }
   }
 }

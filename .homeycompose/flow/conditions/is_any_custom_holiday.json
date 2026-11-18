@@ -1,0 +1,68 @@
+{
+  "id": "is_any_custom_holiday",
+  "title": {
+    "en": "It is one of my holidays",
+    "nl": "Het is een van mijn vakanties",
+    "de": "Es ist einer meiner Urlaube",
+    "fr": "C'est une de mes vacances"
+  },
+  "titleFormatted": {
+    "en": "[[day]] it !{{is|isn't}} one of my holidays",
+    "nl": "[[day]] is het !{{|geen}} eigen vakantie",
+    "de": "[[day]] ist es !{{|nicht}} einer meiner Urlaube",
+    "fr": "[[day]] c'est !{{|pas}} une de mes vacances"
+  },
+  "hint": {
+    "en": "Continues when any of your own holidays is (not) active. You can add them in the app settings",
+    "nl": "Gaat door als een van je eigen vakanties wel/niet actief is. Je kunt ze toevoegen in de app-instellingen",
+    "de": "Wird fortgesetzt, wenn einer deiner eigenen Urlaube (nicht) aktiv ist. Du kannst sie in den App-Einstellungen hinzufügen",
+    "fr": "Continue lorsque l'une de vos propres vacances est (ou n'est pas) active. Vous pouvez les ajouter dans les paramètres de l'app"
+  },
+  "args": [
+    {
+      "name": "day",
+      "type": "dropdown",
+      "title": {
+        "en": "Day",
+        "nl": "Dag",
+        "fr": "Jour",
+        "de": "Tag"
+      },
+      "placeholder": {
+        "en": "Select a day",
+        "nl": "Selecteer een dag",
+        "fr": "Sélectionnez un jour",
+        "de": "Wählen Sie einen Tag"
+      },
+      "values": [
+        {
+          "id": "today",
+          "label": {
+            "en": "Today",
+            "nl": "Vandaag",
+            "fr": "Aujourd'hui",
+            "de": "Heute"
+          }
+        },
+        {
+          "id": "tomorrow",
+          "label": {
+            "en": "Tomorrow",
+            "nl": "Morgen",
+            "fr": "Demain",
+            "de": "Morgen"
+          }
+        },
+        {
+          "id": "yesterday",
+          "label": {
+            "en": "Yesterday",
+            "nl": "Gisteren",
+            "fr": "Hier",
+            "de": "Gestern"
+          }
+        }
+      ]
+    }
+  ]
+}

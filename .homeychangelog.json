@@ -166,5 +166,9 @@
   },
   "2.4.1": {
     "en": "Hotfix school holidays API JSON endpoint"
+  },
+  "2.5.0": {
+    "en": "School holiday start and end triggers work again. Dates now follow your Homey timezone. Holiday ends triggers (school and custom) now fire on the first day after the holiday instead of on the last day. New: condition for school holiday in X days, any custom holiday condition and triggers, countdown tokens. New widget design, which also works on older iPads (iOS 15).",
+    "nl": "Start- en eindtriggers van schoolvakanties werken weer. Datums volgen nu de tijdzone van je Homey. Eindtriggers (school en eigen vakanties) gaan nu af op de eerste dag na de vakantie in plaats van op de laatste dag. Nieuw: voorwaarde voor schoolvakantie over X dagen, voorwaarde en triggers voor elke eigen vakantie, aftel-tokens. Nieuw widgetontwerp, werkt ook op oudere iPads (iOS 15)."
   }
 }

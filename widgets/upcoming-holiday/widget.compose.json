@@ -58,16 +58,16 @@
       "type": "checkbox",
       "value": true,
       "title": {
-        "en": "Show only first upcoming holiday",
-        "nl": "Toon alleen eerst volgende vakantie",
-        "de": "Nur den ersten kommenden Urlaub anzeigen",
-        "fr": "Afficher uniquement les premières vacances à venir"
+        "en": "Always show the next holiday",
+        "nl": "Toon altijd de eerstvolgende vakantie",
+        "de": "Immer die nächsten Ferien anzeigen",
+        "fr": "Toujours afficher les prochaines vacances"
       },
       "hint": {
-        "en": "A selected holiday will not be shown anymore.",
-        "nl": "Een gekozen vakantie word niet meer getoond.",
-        "de": "Ein ausgewählter Urlaub wird nicht mehr angezeigt.",
-        "fr": "Les vacances sélectionnées ne seront plus affichées."
+        "en": "Ignores the holiday chosen below. The widget shows one holiday at a time.",
+        "nl": "Negeert de hieronder gekozen vakantie. De widget toont één vakantie tegelijk.",
+        "de": "Ignoriert die unten gewählten Ferien. Das Widget zeigt jeweils einen Urlaub an.",
+        "fr": "Ignore les vacances choisies ci-dessous. Le widget affiche une seule période à la fois."
       }
     },
     {

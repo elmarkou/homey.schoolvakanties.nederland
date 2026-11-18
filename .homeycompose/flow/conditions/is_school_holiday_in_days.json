@@ -1,0 +1,87 @@
+{
+  "id": "is_school_holiday_in_days",
+  "title": {
+    "en": "It is school holiday in a number of days",
+    "nl": "Het is schoolvakantie over een aantal dagen",
+    "de": "Es sind Schulferien in einigen Tagen",
+    "fr": "C'est les vacances scolaires dans quelques jours"
+  },
+  "titleFormatted": {
+    "en": "In [[days]] days it !{{is|isn't}} school holiday in [[regio]]",
+    "nl": "Over [[days]] dagen is het !{{|geen}} schoolvakantie in [[regio]]",
+    "de": "In [[days]] Tagen sind !{{|keine}} Schulferien in [[regio]]",
+    "fr": "Dans [[days]] jours c'est !{{|pas}} les vacances scolaires dans [[regio]]"
+  },
+  "hint": {
+    "en": "Checks a day in the future, e.g. 7 for the same day next week",
+    "nl": "Controleert een dag in de toekomst, bijvoorbeeld 7 voor dezelfde dag volgende week",
+    "de": "Prüft einen Tag in der Zukunft, z. B. 7 für denselben Tag nächste Woche",
+    "fr": "Vérifie un jour dans le futur, par exemple 7 pour le même jour la semaine prochaine"
+  },
+  "args": [
+    {
+      "name": "days",
+      "type": "number",
+      "min": 0,
+      "max": 365,
+      "step": 1,
+      "title": {
+        "en": "Days",
+        "nl": "Dagen",
+        "de": "Tage",
+        "fr": "Jours"
+      },
+      "placeholder": {
+        "en": "7",
+        "nl": "7",
+        "de": "7",
+        "fr": "7"
+      }
+    },
+    {
+      "name": "regio",
+      "type": "dropdown",
+      "title": {
+        "en": "Region",
+        "nl": "Regio",
+        "de": "Region",
+        "fr": "Région"
+      },
+      "placeholder": {
+        "en": "Select a region",
+        "nl": "Selecteer een regio",
+        "de": "Wählen Sie eine Region",
+        "fr": "Sélectionnez une région"
+      },
+      "values": [
+        {
+          "id": "noord",
+          "label": {
+            "en": "North Region",
+            "nl": "Regio Noord",
+            "de": "Nordregion",
+            "fr": "Région Nord"
+          }
+        },
+        {
+          "id": "midden",
+          "label": {
+            "en": "Central Region",
+            "nl": "Regio Midden",
+            "de": "Zentralregion",
+            "fr": "Région Centrale"
+          }
+        },
+        {
+          "id": "zuid",
+          "label": {
+            "en": "South Region",
+            "nl": "Regio Zuid",
+            "de": "Südregion",
+            "fr": "Région Sud"
+          }
+        }
+      ]
+    }
+  ]
+}

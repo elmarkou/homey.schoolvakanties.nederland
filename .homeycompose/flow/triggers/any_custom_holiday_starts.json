@@ -1,0 +1,27 @@
+{
+  "id": "any_custom_holiday_starts",
+  "title": {
+    "en": "One of my holidays starts",
+    "nl": "Een eigen vakantie begint",
+    "de": "Einer meiner Urlaube beginnt",
+    "fr": "Une de mes vacances commence"
+  },
+  "hint": {
+    "en": "This flow is triggered when any of your own holidays starts today",
+    "nl": "Deze flow wordt gestart als een van je eigen vakanties vandaag begint",
+    "de": "Dieser Ablauf wird ausgelöst, wenn heute einer deiner eigenen Urlaube beginnt",
+    "fr": "Ce flux est déclenché lorsque l'une de vos propres vacances commence aujourd'hui"
+  },
+  "tokens": [
+    {
+      "name": "holiday_name",
+      "type": "string",
+      "title": {
+        "en": "Holiday name",
+        "nl": "Vakantienaam",
+        "de": "Urlaubsname",
+        "fr": "Nom des vacances"
+      }
+    }
+  ]
+}

@@ -2,7 +2,10 @@
   "tokens": {
     "yesterday": "Schulferien gestern",
     "today": "Schulferien heute",
-    "tomorrow": "Schulferien morgen"
+    "tomorrow": "Schulferien morgen",
+    "next_name": "Nächste Schulferien",
+    "days_until": "Tage bis zu den nächsten Schulferien",
+    "days_remaining": "Verbleibende Ferientage"
   },
   "widgets": {
     "upcomingholiday": {
@@ -53,6 +56,10 @@
         "title": "Südregion",
         "subtitle": "Schulferienaufteilung für die Südregion"
       }
+    },
+    "tokenRegion": {
+      "title": "Region für Tokens",
+      "hint": "Die Schulferien-Tokens (heute, morgen, Countdown) verwenden diese Region"
     }
   }
 }

@@ -12,37 +12,39 @@
   </head>
 
   <body class="homey-widget" id="homey-widget">
-    <div class="homey-title-container">
-      <div class="icon-circle"><span class="icon"></span></div>
-      <div class="w-100">
-        <h1
-          class="homey-text-h1 text-truncate"
-          id="date"
-          data-i18n="widgets.upcomingholiday.date"
-        ></h1>
-        <div class="labelgroup">
-          <div class="homey-text-regular">
-            <div
-              class="text-truncate"
-              id="label"
-              data-i18n="widgets.upcomingholiday.label"
-            ></div>
-          </div>
-          <span class="homey-text-small" id="sublabel"></span>
-        </div>
+    <div class="tile" aria-hidden="true">
+      <span class="tile-month" id="tileMonth"></span>
+      <span class="tile-day" id="tileDay"></span>
+    </div>
+    <div class="content">
+      <h1
+        class="title text-truncate"
+        id="date"
+        data-i18n="widgets.upcomingholiday.date"
+      ></h1>
+      <div class="meta">
+        <span
+          class="label text-truncate"
+          id="label"
+          data-i18n="widgets.upcomingholiday.label"
+        ></span>
+        <span class="pill" id="sublabel"></span>
       </div>
     </div>
+    <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
 
     <script type="text/javascript">
       function onHomeyReady(Homey) {
         const SUPPORTED_LANGUAGES = ["nl", "en", "fr", "de"];
         const CUSTOM_DATES_KEY = "customDates";
         const DATE_FORMAT = "YYYY-MM-DD";
-        const TODAY = moment().format(DATE_FORMAT);
         const startDateElement = document.getElementById("date");
         const labelElement = document.getElementById("label");
         const sublabelElement = document.getElementById("sublabel");
         const widgetElement = document.getElementById("homey-widget");
+        const tileMonthElement = document.getElementById("tileMonth");
+        const tileDayElement = document.getElementById("tileDay");
+        const progressBarElement = document.getElementById("progressBar");
         const settings = Homey.getSettings();
 
         // Only show first upcoming holiday
@@ -51,7 +53,7 @@
         }
 
         // setActiveHoliday(settings.holiday);
-        const activeHoliday = getActiveHoliday();
+        const activeHoliday = settings.only_upcoming ? null : getActiveHoliday();
         let currentHolidayData;
 
         // Set language and locale for moment.js
@@ -114,7 +116,7 @@
             lastDay: "[Eindigde gisteren]",
             lastWeek: "[Eindigde afgelopen] dddd",
             sameElse: function () {
-              return `[Nog ${moment(this).from(TODAY, true)}]`;
+              return `[Nog ${moment(this).from(moment().startOf("day"), true)}]`;
             },
           },
           en: {
@@ -124,7 +126,7 @@
             lastDay: "[Ended yesterday]",
             lastWeek: "[Ended last] dddd",
             sameElse: function () {
-              return `[Another ${moment(this).from(TODAY, true)}]`;
+              return `[Another ${moment(this).from(moment().startOf("day"), true)}]`;
             },
           },
           fr: {
@@ -134,7 +136,7 @@
             lastDay: "[Terminé hier]",
             lastWeek: "[Terminé dernier] dddd",
             sameElse: function () {
-              return `[Encore ${moment(this).from(TODAY, true)}]`;
+              return `[Encore ${moment(this).from(moment().startOf("day"), true)}]`;
             },
           },
           de: {
@@ -144,7 +146,7 @@
             lastDay: "[Endete gestern]",
             lastWeek: "[Endete letzten] dddd",
             sameElse: function () {
-              return `[Noch ${moment(this).from(TODAY, true)}]`;
+              return `[Noch ${moment(this).from(moment().startOf("day"), true)}]`;
             },
           },
         };
@@ -202,20 +204,33 @@
         }
 
         // Utility function to update UI with holiday data
+        // Calendar tile: start date when upcoming, last day when active
+        function setTile(day) {
+          const date = moment(day);
+          tileMonthElement.textContent = date.format("MMM").replace(".", "");
+          tileDayElement.textContent = date.format("D");
+        }
+
         function updateUI(holiday) {
+          const start = moment(holiday.startDate);
+          const end = moment(holiday.endDate);
+          const totalDays = end.diff(start, "days") + 1;
+
           if (holiday.isActive) {
             widgetElement.classList.add("is-active");
-            // labelElement.textContent = moment(holiday.startDate).format("LL");
-            labelElement.textContent = `${Homey.__("widgets.until")} ${moment(
-              holiday.endDate
-            ).format("LL")}`;
+            labelElement.textContent = `${Homey.__("widgets.until")} ${end.format("LL")}`;
             sublabelElement.textContent = daysRemaining(holiday.endDate);
             startDateElement.textContent = holiday.label;
+            setTile(holiday.endDate);
+            const elapsed = moment().startOf("day").diff(start, "days") + 1;
+            progressBarElement.style.width = `${Math.min(100, (elapsed / totalDays) * 100)}%`;
           } else {
             widgetElement.classList.remove("is-active");
             startDateElement.textContent = daysToGo(holiday.startDate);
             labelElement.textContent = holiday.label;
-            sublabelElement.textContent = moment(holiday.startDate).format("L");
+            sublabelElement.textContent = moment.duration(totalDays, "days").humanize();
+            setTile(holiday.startDate);
+            progressBarElement.style.width = "0";
           }
 
           if (!holiday.isSchoolHoliday) {
@@ -301,7 +316,8 @@
 
         // Determine which holiday data to fetch
         async function fetchAllData() {
-          if (activeHoliday) {
+          // A chosen holiday that is over falls back to the next upcoming holiday
+          if (activeHoliday && moment(activeHoliday.endDate).isSameOrAfter(moment(), "day")) {
             fetchHoliday();
           } else {
             fetchUpcomingHolidays();

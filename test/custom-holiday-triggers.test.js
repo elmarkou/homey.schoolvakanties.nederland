@@ -12,15 +12,18 @@ Module._load = function mockHomey(request, parent, isMain) {
 
 const SchoolHolidayApp = require("../app");
 
-test("checkHolidayTriggers fires custom holiday start and end cards for today's custom dates", async () => {
-  const customStartTriggerCalls = [];
-  const customEndTriggerCalls = [];
+function recorder(calls, name) {
+  return {
+    trigger: async (tokens, state) => calls.push({ name, tokens, state }),
+  };
+}
 
-  const context = {
-    cachedHolidayData: [],
-    resolveHolidayData: async () => [],
-    getCustomDates: SchoolHolidayApp.prototype.getCustomDates,
+test("checkHolidayTriggers fires custom start on the first day and ends on the day after the last day", async () => {
+  const calls = [];
+  const app = Object.create(SchoolHolidayApp.prototype);
+  Object.assign(app, {
     homey: {
+      clock: { getTimezone: () => "Europe/Amsterdam" },
       settings: {
         get: (key) => {
           assert.equal(key, "customDates");
@@ -35,42 +38,42 @@ test("checkHolidayTriggers fires custom holiday start and end cards for today's 
               id: 202,
               label: "Kingsday Weekend",
               startDate: "2026-04-26",
-              endDate: "2026-04-29",
+              endDate: "2026-04-28",
             },
           ];
         },
       },
     },
-    triggerHolidayStarts: { trigger: async () => {} },
-    triggerHolidayEnds: { trigger: async () => {} },
-    triggerAnyHolidayStarts: { trigger: async () => {} },
-    triggerAnyHolidayEnds: { trigger: async () => {} },
-    triggerCustomHolidayStarts: {
-      trigger: async (tokens, state) => {
-        customStartTriggerCalls.push({ tokens, state });
-      },
-    },
-    triggerCustomHolidayEnds: {
-      trigger: async (tokens, state) => {
-        customEndTriggerCalls.push({ tokens, state });
-      },
-    },
+    getVacations: async () => [],
+    triggerCustomHolidayStarts: recorder(calls, "start"),
+    triggerCustomHolidayEnds: recorder(calls, "end"),
+    triggerAnyCustomHolidayStarts: recorder(calls, "anyStart"),
+    triggerAnyCustomHolidayEnds: recorder(calls, "anyEnd"),
     error: () => {},
-    log: () => {},
-  };
+  });
 
-  await SchoolHolidayApp.prototype.checkHolidayTriggers.call(context);
+  await app.checkHolidayTriggers("2026-04-29");
 
-  assert.deepEqual(customStartTriggerCalls, [
+  assert.deepEqual(calls, [
     {
+      name: "start",
       tokens: { holiday_name: "My Spring Trip" },
       state: { holiday: "101" },
     },
-  ]);
-  assert.deepEqual(customEndTriggerCalls, [
     {
+      name: "anyStart",
+      tokens: { holiday_name: "My Spring Trip" },
+      state: undefined,
+    },
+    {
+      name: "end",
       tokens: { holiday_name: "Kingsday Weekend" },
       state: { holiday: "202" },
+    },
+    {
+      name: "anyEnd",
+      tokens: { holiday_name: "Kingsday Weekend" },
+      state: undefined,
     },
   ]);
 });

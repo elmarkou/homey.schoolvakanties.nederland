@@ -2,7 +2,10 @@
   "tokens": {
     "yesterday": "Schoolvakantie gisteren",
     "today": "Schoolvakantie vandaag",
-    "tomorrow": "Schoolvakantie morgen"
+    "tomorrow": "Schoolvakantie morgen",
+    "next_name": "Volgende schoolvakantie",
+    "days_until": "Dagen tot volgende schoolvakantie",
+    "days_remaining": "Resterende dagen schoolvakantie"
   },
   "widgets": {
     "upcomingholiday": {
@@ -53,6 +56,10 @@
         "title": "Regio Zuid",
         "subtitle": "Indeling schoolvakanties regio Zuid"
       }
+    },
+    "tokenRegion": {
+      "title": "Regio voor tokens",
+      "hint": "De schoolvakantie-tokens (vandaag, morgen, aftellen) gebruiken deze regio"
     }
   }
 }

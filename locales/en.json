@@ -2,7 +2,10 @@
   "tokens": {
     "yesterday": "School holiday yesterday",
     "today": "School holiday today",
-    "tomorrow": "School holiday tomorrow"
+    "tomorrow": "School holiday tomorrow",
+    "next_name": "Next school holiday",
+    "days_until": "Days until next school holiday",
+    "days_remaining": "Days left in school holiday"
   },
   "widgets": {
     "upcomingholiday": {
@@ -53,6 +56,10 @@
         "title": "South Region",
         "subtitle": "School holiday division for the South region"
       }
+    },
+    "tokenRegion": {
+      "title": "Region for tokens",
+      "hint": "The school holiday tokens (today, tomorrow, countdown) use this region"
     }
   }
 }

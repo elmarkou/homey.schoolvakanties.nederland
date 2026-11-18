@@ -47,6 +47,18 @@
         </div>
         <div id="custom-dates"></div>
         <hr />
+        <div class="homey-form-group">
+            <label class="homey-form-label" for="tokenRegion"
+                data-i18n="settings.tokenRegion.title"></label>
+            <select id="tokenRegion" class="homey-form-select">
+                <option value="" disabled selected>-</option>
+                <option value="noord" data-i18n="settings.region.north"></option>
+                <option value="midden" data-i18n="settings.region.middle"></option>
+                <option value="zuid" data-i18n="settings.region.south"></option>
+            </select>
+            <p class="homey-form-label" data-i18n="settings.tokenRegion.hint"></p>
+        </div>
+        <hr />
         <div id="dates">
             <h1></h1>
             <h3></h3>
@@ -275,6 +287,17 @@
             
                     // Set locale for date formatting
                     moment.locale(Homey._language);
+
+                    // Region used for the global school holiday tokens
+                    const tokenRegionElement = document.getElementById("tokenRegion");
+                    Homey.get("tokenRegion", (err, region) => {
+                        if (!err && region) tokenRegionElement.value = region;
+                    });
+                    tokenRegionElement.addEventListener("change", () => {
+                        Homey.set("tokenRegion", tokenRegionElement.value, (err) => {
+                            if (err) Homey.alert(err.message || String(err));
+                        });
+                    });
 
                     // Get form elements
                     const startDateElement = document.getElementById("startDate");

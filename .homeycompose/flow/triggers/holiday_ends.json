@@ -13,10 +13,10 @@
     "fr": "Les vacances scolaires se terminent dans [[regio]]"
   },
   "hint": {
-    "en": "This flow is triggered when any school holiday ends today in the selected region",
-    "nl": "Deze flow wordt gestart als er een schoolvakantie eindigt vandaag in de geselecteerde regio",
-    "de": "Dieser Ablauf wird ausgelöst, wenn heute Schulferien in der gewählten Region enden",
-    "fr": "Ce flux est déclenché lorsque des vacances scolaires se terminent aujourd'hui dans la région sélectionnée"
+    "en": "This flow is triggered on the first day after any school holiday in the selected region",
+    "nl": "Deze flow wordt gestart op de eerste dag na een schoolvakantie in de geselecteerde regio",
+    "de": "Dieser Ablauf wird am ersten Tag nach Schulferien in der gewählten Region ausgelöst",
+    "fr": "Ce flux est déclenché le premier jour après des vacances scolaires dans la région sélectionnée"
   },
   "tokens": [
     {

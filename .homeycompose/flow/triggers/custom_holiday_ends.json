@@ -13,10 +13,10 @@
     "fr": "[[holiday]] se termine"
   },
   "hint": {
-    "en": "This flow is triggered when the selected custom holiday ends today",
-    "nl": "Deze flow wordt gestart als de gekozen eigen vakantie vandaag eindigt",
-    "de": "Dieser Ablauf wird ausgelöst, wenn der ausgewählte benutzerdefinierte Urlaub heute endet",
-    "fr": "Ce flux est déclenché lorsque les vacances personnalisées choisies se terminent aujourd'hui"
+    "en": "This flow is triggered on the first day after the selected custom holiday",
+    "nl": "Deze flow wordt gestart op de eerste dag na de gekozen eigen vakantie",
+    "de": "Dieser Ablauf wird am ersten Tag nach dem gewählten benutzerdefinierten Urlaub ausgelöst",
+    "fr": "Ce flux est déclenché le premier jour après les vacances personnalisées choisies"
   },
   "tokens": [
     {
